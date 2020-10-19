@@ -1,17 +1,18 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://agents/Slug.png" type="Texture" id=1]
 [ext_resource path="res://lights/slugeyes.png" type="Texture" id=2]
 [ext_resource path="res://agents/Slug.gd" type="Script" id=3]
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 3.67758, 7.63662 )
+[ext_resource path="res://agents/Ai.gd" type="Script" id=4]
+[ext_resource path="res://lights/glow.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.98395, 7.76792 )
+extents = Vector2( 3.67758, 7.63662 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "down"
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2.25889, 6.01663 )
+
+[sub_resource type="Animation" id=3]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -27,27 +28,39 @@ tracks/0/keys = {
 "values": [ 1, 4 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "eye_fade"
-length = 2.0
+length = 4.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Light2D:energy")
+tracks/0/path = NodePath("Eyes:energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
+"times": PoolRealArray( 0, 0.7, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Glow:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "eye_shine"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Light2D:energy")
+tracks/0/path = NodePath("Eyes:energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -58,9 +71,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.0, 1.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Glow:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
 
-[sub_resource type="Animation" id=3]
-resource_name = "left"
+[sub_resource type="Animation" id=6]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -88,8 +112,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "right"
+[sub_resource type="Animation" id=7]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -117,8 +140,179 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "up"
+[sub_resource type="Animation" id=8]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 5 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 4 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "eye_fade"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Eyes:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Glow:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "eye_shine"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Eyes:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Glow:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "glow"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Eyes:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Glow:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=14]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=15]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -135,13 +329,16 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 40.141
+radius = 116.436
 
 [node name="Slug" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 3 )
+speed = 3000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -150,28 +347,60 @@ hframes = 3
 frame = 1
 
 [node name="LampHitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LampHitbox"]
 position = Vector2( -0.043766, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
-[node name="Light2D" type="Light2D" parent="."]
+[node name="Eyes" type="Light2D" parent="."]
 texture = ExtResource( 2 )
-energy = 0.0
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/down = SubResource( 2 )
-anims/eye_fade = SubResource( 6 )
-anims/eye_shine = SubResource( 7 )
-anims/left = SubResource( 3 )
-anims/right = SubResource( 4 )
-anims/up = SubResource( 5 )
+autoplay = "down"
+anims/down = SubResource( 3 )
+anims/eye_fade = SubResource( 4 )
+anims/eye_shine = SubResource( 5 )
+anims/left = SubResource( 6 )
+anims/right = SubResource( 7 )
+anims/up = SubResource( 8 )
+
+[node name="EyeAnim" type="AnimationPlayer" parent="."]
+autoplay = "eye_fade"
+anims/down = SubResource( 10 )
+anims/eye_fade = SubResource( 11 )
+anims/eye_shine = SubResource( 12 )
+anims/glow = SubResource( 16 )
+anims/left = SubResource( 13 )
+anims/right = SubResource( 14 )
+anims/up = SubResource( 15 )
 
 [node name="Ai" type="Node" parent="."]
+script = ExtResource( 4 )
 
 [node name="View" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="View"]
+position = Vector2( -0.12851, -0.257025 )
 shape = SubResource( 9 )
+
+[node name="Glow" type="Light2D" parent="."]
+position = Vector2( 0, -2.55161 )
+texture = ExtResource( 5 )
+
+[node name="RunningTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+autostart = true
 [connection signal="area_entered" from="LampHitbox" to="." method="_on_LampHitbox_area_entered"]
+[connection signal="area_entered" from="LampHitbox" to="Ai" method="_on_LampHitbox_area_entered"]
 [connection signal="area_exited" from="LampHitbox" to="." method="_on_LampHitbox_area_exited"]
+[connection signal="area_exited" from="LampHitbox" to="Ai" method="_on_LampHitbox_area_exited"]
+[connection signal="target" from="Ai" to="." method="_on_Ai_target"]
+[connection signal="turn" from="Ai" to="." method="_on_Ai_turn"]
+[connection signal="area_entered" from="View" to="Ai" method="_on_View_area_entered"]
+[connection signal="area_exited" from="View" to="Ai" method="_on_View_area_exited"]
+[connection signal="timeout" from="RunningTimer" to="Ai" method="_on_RuningTimer_timeout"]

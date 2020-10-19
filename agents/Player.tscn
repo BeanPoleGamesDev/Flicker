@@ -210,7 +210,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 7.88462, 11.6212 )
+extents = Vector2( 2.70608, 6.40052 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 4 )
@@ -248,9 +248,12 @@ texture = ExtResource( 2 )
 offset = Vector2( 48.5, 0 )
 
 [node name="LampArea" type="Area2D" parent="Flashlight"]
+collision_layer = 2
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Flashlight/LampArea"]
-polygon = PoolVector2Array( 3.03288, -1.73429, 92.2931, -32.7483, 93.2896, 33.0207, 3.60246, 2.39518 )
+position = Vector2( 0.135277, -0.135277 )
+polygon = PoolVector2Array( 3.55573, -10.8096, 121.44, -39.829, 119.704, 39.6917, 3.69101, 11.7815 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -260,11 +263,22 @@ smoothing_enabled = true
 script = ExtResource( 3 )
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 10 )
+
+[node name="SightBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightBox"]
 shape = SubResource( 10 )
 [connection signal="all_released" from="PlayerInput" to="." method="_on_PlayerInput_all_released"]
 [connection signal="pressed" from="PlayerInput" to="." method="_on_PlayerInput_pressed"]
 [connection signal="released" from="PlayerInput" to="." method="_on_PlayerInput_released"]
 [connection signal="rotate" from="PlayerInput" to="." method="_on_MouseInput_rotate"]
 [connection signal="turn" from="PlayerInput" to="." method="_on_PlayerInput_turn"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_entered" from="SightBox" to="." method="_on_SightBox_area_entered"]

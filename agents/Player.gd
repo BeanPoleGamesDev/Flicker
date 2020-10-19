@@ -3,7 +3,7 @@ extends KinematicBody2D
 const ANIM_WALK_PREFIX = '%s_walk'
 
 
-export var speed := 100
+export var speed := 5000
 
 var walking = false
 var compass = Vector2.ZERO
@@ -14,7 +14,7 @@ onready var anim = $Anim
 
 
 func _physics_process(delta):
-	move_and_slide(input.movement * speed)
+	move_and_slide(input.movement * speed * delta)
 
 func _on_MouseInput_rotate(angle):
 	flashlight.rotation = angle
@@ -57,3 +57,11 @@ func get_anim_prefix()->String:
 
 
 
+
+
+func _on_Hitbox_area_entered(area):
+	get_tree().change_scene("res://menus/GameOver.tscn")
+
+
+func _on_SightBox_area_entered(area):
+	pass # Replace with function body.
