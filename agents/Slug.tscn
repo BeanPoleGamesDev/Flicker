@@ -230,7 +230,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=16]
 resource_name = "glow"
-length = 2.0
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Eyes:energy")
 tracks/0/interp = 1
@@ -238,7 +238,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 2 ),
+"times": PoolRealArray( 0, 0.1, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0, 1.0 ]
@@ -250,7 +250,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 2 ),
+"times": PoolRealArray( 0, 0.1, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0, 1.0 ]
@@ -329,13 +329,13 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 116.436
+radius = 81.6813
 
 [node name="Slug" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 3 )
-speed = 3000
+speed = 4500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -344,7 +344,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 3
-frame = 1
+frame = 4
 
 [node name="LampHitbox" type="Area2D" parent="."]
 collision_layer = 16
@@ -381,7 +381,7 @@ script = ExtResource( 4 )
 
 [node name="View" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="View"]
 position = Vector2( -0.12851, -0.257025 )
@@ -395,6 +395,10 @@ texture = ExtResource( 5 )
 wait_time = 0.3
 one_shot = true
 autostart = true
+
+[node name="Intrest" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
 [connection signal="area_entered" from="LampHitbox" to="." method="_on_LampHitbox_area_entered"]
 [connection signal="area_entered" from="LampHitbox" to="Ai" method="_on_LampHitbox_area_entered"]
 [connection signal="area_exited" from="LampHitbox" to="." method="_on_LampHitbox_area_exited"]
@@ -402,5 +406,5 @@ autostart = true
 [connection signal="target" from="Ai" to="." method="_on_Ai_target"]
 [connection signal="turn" from="Ai" to="." method="_on_Ai_turn"]
 [connection signal="area_entered" from="View" to="Ai" method="_on_View_area_entered"]
-[connection signal="area_exited" from="View" to="Ai" method="_on_View_area_exited"]
 [connection signal="timeout" from="RunningTimer" to="Ai" method="_on_RuningTimer_timeout"]
+[connection signal="timeout" from="Intrest" to="Ai" method="_on_Intrest_timeout"]

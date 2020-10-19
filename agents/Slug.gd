@@ -14,7 +14,7 @@ func _on_Ai_turn(compass):
 func _on_Ai_target(target):
 	eyeanim.play("glow")
 	eyeanim.queue("eye_fade")
-	
+
 
 func _physics_process(delta):
 	move_and_slide(ai.movement * speed * delta)
@@ -36,7 +36,5 @@ func get_anim_name()->String:
 	if ai.compass.y == 1:
 		return 'down'
 	return 'down'
-
-
 
 

@@ -17,11 +17,14 @@ signal target(target)
 onready var agent = get_parent()
 onready var runtimer = get_node('../RunningTimer')
 onready var hitbox = get_node('../LampHitbox')
+onready var view = get_node('../View')
+onready var intrest = get_node('../Intrest')
 
 func _ready():
 	reset_run_dir()
 
 
+# warning-ignore:unused_argument
 func _physics_process(delta):
 	if target:
 		if !frozen:
@@ -32,9 +35,8 @@ func _physics_process(delta):
 		
 		if !frozen && frozen != last_frozen:
 			reset_run_dir()
-		
-		
-	movement.clamped(2)
+	else:
+		movement = movement*smooth
 		
 		
 	if compass.y != 0 && compass.x !=0:
@@ -46,24 +48,24 @@ func _physics_process(delta):
 func _on_View_area_entered(area):
 	set_target(area.get_parent())
 
-func _on_View_area_exited(area):
-	pass
 
+# warning-ignore:unused_argument
 func _on_LampHitbox_area_entered(area):
 	set_frozen(true)
-	set_target(area.get_parent())
 
 func reset_run_dir():
 	run_dir.x = rand_range(-rand_max,rand_max)
 	run_dir.y = rand_range(-rand_max,rand_max)
 
+# warning-ignore:unused_argument
 func _on_LampHitbox_area_exited(area):
-	runtimer.start(0.3)
+	runtimer.start(0.5)
 	
 func set_target(targ):
 	if target == null:
+		intrest.start(10)
 		emit_signal("target", targ)
-		target = targ
+	target = targ
 
 
 func _on_RuningTimer_timeout():
@@ -71,7 +73,17 @@ func _on_RuningTimer_timeout():
 		runtimer.start(0.3)
 	else:
 		set_frozen(false)
+		if rand_range(0,3) > 2:
+			set_target(null)
 	
 func set_frozen(val):
 	last_frozen = frozen
 	frozen = val
+
+
+func _on_Intrest_timeout():
+	if view.get_overlapping_areas().size() > 0:
+		intrest.start(10)
+	else:
+		set_target(null)
+		

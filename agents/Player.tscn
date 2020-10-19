@@ -250,7 +250,7 @@ collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Flashlight/LampArea"]
 position = Vector2( 0.135277, -0.135277 )
-polygon = PoolVector2Array( 3.55573, -10.8096, 121.44, -39.829, 119.704, 39.6917, 3.69101, 11.7815 )
+polygon = PoolVector2Array( 3.55573, -10.8096, 95.7436, -32.0082, 96.574, 32.7644, 3.69101, 11.7815 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
