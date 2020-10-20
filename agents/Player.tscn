@@ -258,6 +258,7 @@ smoothing_enabled = true
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource( 3 )
+joy_zone = 0.1
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 32

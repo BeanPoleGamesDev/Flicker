@@ -19,9 +19,9 @@ var click = 0
 var use_joy = false
 
 export var joy_zone := 0.1
-export var mouse_smooth := 0.99
+export var mouse_smooth := 0.2
 
-export var joy_smooth := 60
+export var joy_smooth := 0.1
 
 
 signal rotate(angle)
@@ -32,7 +32,10 @@ signal turn(compass)
 func _process(delta):
 
 	if use_joy:
-		motion = (joy_input+motion)/2
+		motion = ((joy_input*joy_smooth)+motion)/(joy_smooth+1)
+	else:
+		motion = ((mouse_input*mouse_smooth)+motion)/(mouse_smooth+1)
+
 	
 	handle_angle()
 	handle_direction()
@@ -75,8 +78,8 @@ func handle_mouse(event):
 	if event is InputEventMouseMotion:
 		use_joy = false
 
-		mouse_input = event.relative
-		motion = motion*mouse_smooth + mouse_input
+		mouse_input = mouse_input*0.99 + event.relative
+
 
 func handle_angle():
 	last_ang = angle
