@@ -4,23 +4,17 @@ extends Node
 var mouse_input = Vector2.ZERO
 var joy_input = Vector2.ZERO
 
-
 var motion = Vector2.ZERO
 
 var angle = 0
 var last_ang = 0
+
 var direction = Vector2.ZERO
 var movement = Vector2.ZERO
 var compass = Vector2.ZERO
 var last_com = Vector2.ZERO
-var click = 0
 
-var actions = {
-	'ui_up': 0,
-	'ui_down': 0,
-	'ui_left': 0,
-	'ui_right': 0
-}
+var click = 0
 
 var use_joy = false
 
@@ -39,7 +33,6 @@ func _process(delta):
 
 	if use_joy:
 		motion = (joy_input+motion)/2
-#		joy_input -= joy_input*joy_smooth*delta
 	
 	handle_angle()
 	handle_direction()
@@ -67,8 +60,6 @@ func handle_action(event):
 func handle_joystick(event):
 	if event is InputEventJoypadMotion:
 		use_joy = true
-		
-		print(joy_input, '  - ', motion)
 
 		if event.axis == 0 || event.axis == 2:
 			joy_input.x = event.axis_value

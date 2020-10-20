@@ -28,10 +28,10 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
-margin_left = 185.0
-margin_top = 129.0
-margin_right = 384.0
-margin_bottom = 191.0
+margin_left = 187.0
+margin_top = 88.0
+margin_right = 383.0
+margin_bottom = 232.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,7 +39,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
 margin_right = 50.0
-margin_bottom = 62.0
+margin_bottom = 144.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/VBoxContainer"]
 margin_right = 50.0
@@ -60,25 +60,40 @@ text = "Exit"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
 margin_left = 70.0
-margin_right = 199.0
-margin_bottom = 62.0
+margin_right = 196.0
+margin_bottom = 144.0
+custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/VBoxContainer2"]
-margin_right = 129.0
+margin_right = 126.0
 margin_bottom = 14.0
 text = "How To PLay:"
 
 [node name="Label2" type="Label" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 18.0
-margin_right = 129.0
-margin_bottom = 32.0
-text = "1. Find all the Coins"
+margin_top = 24.0
+margin_right = 126.0
+margin_bottom = 38.0
+text = "Find all the Coins"
 
 [node name="Label3" type="Label" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 36.0
-margin_right = 129.0
-margin_bottom = 50.0
-text = "2. Dont get Spooked"
+margin_top = 48.0
+margin_right = 126.0
+margin_bottom = 62.0
+text = "Dont get Spooked"
+
+[node name="Label5" type="Label" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 72.0
+margin_right = 126.0
+margin_bottom = 103.0
+text = "Use the mouse 
+or controller to turn"
+
+[node name="Label4" type="Label" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 113.0
+margin_right = 126.0
+margin_bottom = 144.0
+text = "Use W or the 
+X button to move"
 
 [node name="Node2D" type="Node2D" parent="."]
 scale = Vector2( 3, 3 )
@@ -106,7 +121,7 @@ vframes = 2
 hframes = 3
 
 [node name="Light" parent="Node2D" instance=ExtResource( 6 )]
-position = Vector2( 18.8833, 19.6892 )
+position = Vector2( 19.0729, 19.6892 )
 rotation = 0.424262
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
