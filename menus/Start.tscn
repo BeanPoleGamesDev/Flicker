@@ -84,7 +84,6 @@ text = "2. Dont get Spooked"
 scale = Vector2( 3, 3 )
 
 [node name="TileMap" type="TileMap" parent="Node2D"]
-scale = Vector2( 1, 1 )
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 8, 8 )
 format = 1
