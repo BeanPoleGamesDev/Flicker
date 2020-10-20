@@ -335,7 +335,7 @@ radius = 81.6813
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 3 )
-speed = 4500
+speed = 3000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

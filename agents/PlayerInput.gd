@@ -8,6 +8,7 @@ var direction = Vector2.ZERO
 var movement = Vector2.ZERO
 var compass = Vector2.ZERO
 var last_com = Vector2.ZERO
+var click = 0
 
 var actions = {
 	'ui_up': 0,
@@ -32,6 +33,7 @@ func _input(event):
 		mouse_motion = mouse_motion*smooth + event.relative
 		angle = mouse_motion.angle()
 		compass = mouse_motion.normalized().round()
+		direction = compass
 		if compass.y != 0 && compass.x !=0:
 			compass.y = 0
 		if last_com != compass:
@@ -40,20 +42,15 @@ func _input(event):
 		last_com = compass
 
 		emit_signal("rotate", angle)
-		return
 	
-	for action in actions:
-		if event.is_action_pressed(action):
-			actions[action] = 1	
-			emit_signal("pressed",action)
-		elif event.is_action_released(action):
-			actions[action] = 0
-			emit_signal("released",action)
-			
-	
-	movement = Vector2(
-		actions['ui_right'] - actions['ui_left'],
-		actions['ui_down'] - actions['ui_up']
-	)
+	elif event.is_action_pressed('ui_click'):
+		emit_signal('pressed', 'ui_click')
+		click = 1
+	elif event.is_action_released('ui_click'):
+		click = 0
+		emit_signal('released', 'ui_click')
+		
+	movement = direction*click
+
 	if movement.x == 0 && movement.y == 0:
 		emit_signal('all_released')
