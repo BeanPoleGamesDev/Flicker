@@ -272,7 +272,6 @@ collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SightBox"]
 shape = SubResource( 10 )
-[connection signal="all_released" from="PlayerInput" to="." method="_on_PlayerInput_all_released"]
 [connection signal="pressed" from="PlayerInput" to="." method="_on_PlayerInput_pressed"]
 [connection signal="released" from="PlayerInput" to="." method="_on_PlayerInput_released"]
 [connection signal="rotate" from="PlayerInput" to="." method="_on_MouseInput_rotate"]

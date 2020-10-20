@@ -1,10 +1,14 @@
 extends Node
 
 
-var mouse_motion = Vector2.ZERO
-var joy_motion = Vector2.ZERO
+var mouse_input = Vector2.ZERO
+var joy_input = Vector2.ZERO
 
-var angle = Vector2.ZERO
+
+var motion = Vector2.ZERO
+
+var angle = 0
+var last_ang = 0
 var direction = Vector2.ZERO
 var movement = Vector2.ZERO
 var compass = Vector2.ZERO
@@ -18,60 +22,85 @@ var actions = {
 	'ui_right': 0
 }
 
+var use_joy = false
 
-export var smooth := 0.99
+export var joy_zone := 0.1
+export var mouse_smooth := 0.99
+
+export var joy_smooth := 60
+
 
 signal rotate(angle)
-signal pressed(action)
-signal released(action)
+signal pressed()
+signal released()
 signal turn(compass)
-signal all_released()
+
+func _process(delta):
+
+	if use_joy:
+		motion = (joy_input+motion)/2
+#		joy_input -= joy_input*joy_smooth*delta
+	
+	handle_angle()
+	handle_direction()
+	handle_compass()
+	
+	if last_ang != angle:
+		emit_signal("rotate", angle)
 
 func _input(event):
 	
 	handle_mouse(event)
 	handle_joystick(event)
+	handle_action(event)
 	
-	if event.is_action_pressed('ui_click'):
-		emit_signal('pressed', 'ui_click')
-		click = 1
-	elif event.is_action_released('ui_click'):
-		click = 0
-		emit_signal('released', 'ui_click')
-		
 	movement = direction*click
 
-	if movement.x == 0 && movement.y == 0:
-		emit_signal('all_released')
+func handle_action(event):
+	if event.is_action_pressed('ui_click'):
+		click = 1
+		emit_signal('pressed')
+	elif event.is_action_released('ui_click'):
+		click = 0
+		emit_signal('released')
 
 func handle_joystick(event):
 	if event is InputEventJoypadMotion:
-		print(event.axis_value, ' - ', event.axis)
-		if event.axis == 1 || event.axis == 3:
-			joy_motion.x += event.axis_value
+		use_joy = true
 		
-		if event.axis == 2 || event.axis == 4:
-			joy_motion.y += event.axis_value
-		joy_motion.clamped(1)
-		angle = joy_motion.angle()
-		direction = mouse_motion.normalized().round()
-		compass = direction
+		print(joy_input, '  - ', motion)
+
+		if event.axis == 0 || event.axis == 2:
+			joy_input.x = event.axis_value
+		if event.axis == 1 || event.axis == 3:
+			joy_input.y = event.axis_value
+		if joy_input.x < joy_zone && joy_input.x > -joy_zone:
+			joy_input.x = 0
+		if joy_input.y < joy_zone && joy_input.y > -joy_zone:
+			joy_input.y = 0			
+
 
 func handle_mouse(event):
 	if event is InputEventMouseMotion:
-		
-		mouse_motion = mouse_motion*smooth + event.relative
-		angle = mouse_motion.angle()
-		compass = mouse_motion.normalized().round()
-		
-		direction = compass
+		use_joy = false
 
-		last_com = compass
+		mouse_input = event.relative
+		motion = motion*mouse_smooth + mouse_input
 
-		emit_signal("rotate", angle)
+func handle_angle():
+	last_ang = angle
+	angle = motion.angle()
+	
+func handle_direction():
+	direction = motion.normalized()
 
 func handle_compass():
+	compass = direction.round()
 	if compass.y != 0 && compass.x !=0:
 		compass.y = 0
 	if last_com != compass:
 		emit_signal('turn', compass)
+	last_com = compass
+
+func is_moving():
+	return click == 1
