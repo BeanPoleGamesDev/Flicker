@@ -17,7 +17,8 @@ func _on_Ai_target(target):
 
 
 func _physics_process(delta):
-	move_and_slide(ai.movement * speed * delta)
+	pass
+#	move_and_slide(ai.movement * speed * delta)
 
 func _on_LampHitbox_area_entered(area):
 	eyeanim.play("eye_shine")

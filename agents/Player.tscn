@@ -238,6 +238,7 @@ anims/up_walk = SubResource( 9 )
 [node name="Flashlight" type="Position2D" parent="."]
 
 [node name="Light" parent="Flashlight" instance=ExtResource( 5 )]
+light_mask = 3
 
 [node name="Sprite" type="Sprite" parent="Flashlight"]
 visible = false
@@ -258,7 +259,6 @@ smoothing_enabled = true
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource( 3 )
-joy_zone = 0.1
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 32
