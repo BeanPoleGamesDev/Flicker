@@ -7,7 +7,7 @@
 [ext_resource path="res://lights/Light.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.14996, 7.29235 )
+extents = Vector2( 3.14996, 7.56917 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "down"
@@ -239,6 +239,7 @@ anims/up_walk = SubResource( 9 )
 
 [node name="Light" parent="Flashlight" instance=ExtResource( 5 )]
 light_mask = 3
+position = Vector2( -0.0701523, -0.0701542 )
 
 [node name="Sprite" type="Sprite" parent="Flashlight"]
 visible = false
@@ -272,6 +273,7 @@ collision_layer = 8
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SightBox"]
+position = Vector2( -0.052557, -0.052556 )
 shape = SubResource( 10 )
 [connection signal="pressed" from="PlayerInput" to="." method="_on_PlayerInput_pressed"]
 [connection signal="released" from="PlayerInput" to="." method="_on_PlayerInput_released"]
